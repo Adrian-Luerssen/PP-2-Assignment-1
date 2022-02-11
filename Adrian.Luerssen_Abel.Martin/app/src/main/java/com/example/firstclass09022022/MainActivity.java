@@ -17,8 +17,10 @@ public class MainActivity extends AppCompatActivity {
 
     private Button trueButton;
     private Button falseButton;
+    private Button resetButton;
 
     private int scoreCounter = 0;
+    private int answerCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         QuestionPool questionPool = new QuestionPool();
         questionPool.init();
+        resetButton = (Button) findViewById(R.id.reset_button);   // reset button in the view
         trueButton = (Button) findViewById(R.id.true_button);   // true button in the view
         falseButton = (Button) findViewById(R.id.false_button); // false button in the view
         question = (TextView) findViewById(R.id.question); // text box displaying the question in the view
@@ -50,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     incorrectToast.show();
                 }
-
+                answerCounter += 1;
                 questionPool.popCurrentQuestion(); // removes the current question from the list
                 questionPool.nextQuestion(); // moves onto the next question
                 question.setText(questionPool.getQuestionString()); // changes the display question
-                score.setText(String.format(Locale.getDefault(), "Score: %d", scoreCounter));
+                score.setText(String.format(Locale.getDefault(), "Score: %d/%d", scoreCounter,answerCounter));
 
             } else{
                 question.setText(questionPool.getQuestionString()); // changes the display question
@@ -72,17 +75,25 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     incorrectToast.show();
                 }
-
+                answerCounter += 1;
                 questionPool.popCurrentQuestion(); // removes the current question from the list
                 questionPool.nextQuestion(); // moves onto the next question
                 question.setText(questionPool.getQuestionString()); // changes the display question
-                score.setText(String.format(Locale.getDefault(), "Score: %d", scoreCounter));
+                score.setText(String.format(Locale.getDefault(), "Score: %d/%d", scoreCounter,answerCounter));
 
             } else {
                 question.setText(questionPool.getQuestionString()); // changes the display question
             }
         });
 
+        resetButton.setOnClickListener(view -> {
+            questionPool.resetQuestions();
+            answerCounter = 0;
+            scoreCounter = 0;
+            questionPool.nextQuestion(); // moves onto the next question
+            question.setText(questionPool.getQuestionString()); // changes the display question
+            score.setText(R.string.Score);
+        });
     }
 
 

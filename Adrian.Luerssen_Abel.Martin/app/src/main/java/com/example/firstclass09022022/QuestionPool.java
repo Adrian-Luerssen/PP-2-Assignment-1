@@ -48,5 +48,14 @@ public class QuestionPool {
         questions.remove(index);
     }
 
+    public void resetQuestions (){
+        init();
+        if (!isEmpty()){
+            Random rd = new Random();
+
+            index = rd.nextInt(questions.size());
+        }
+
+    }
 
 }
