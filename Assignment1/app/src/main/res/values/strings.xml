@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Assignment 1</string>
+    <string name="Question">No question has been loaded</string>
+    <string name="True_Button">True</string>
+    <string name="False_Button">False</string>
+    <string name="toast_correct">That answer was correct</string>
+    <string name="toast_incorrect">That answer was not correct</string>
+    <string name="Score">Score: 0</string>
+    <string name="Reset_Button">Reset</string>
+</resources>
