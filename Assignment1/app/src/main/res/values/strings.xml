@@ -7,4 +7,5 @@
     <string name="toast_incorrect">That answer was not correct</string>
     <string name="Score">Score: 0</string>
     <string name="Reset_Button">Reset</string>
+    <string name="score_format">Score: %d/%d</string>
 </resources>

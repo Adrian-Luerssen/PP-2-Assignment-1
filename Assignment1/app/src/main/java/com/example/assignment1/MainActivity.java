@@ -2,6 +2,7 @@ package com.example.assignment1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.Button;
@@ -36,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
         question.setText(questionPool.getQuestionString());
         // setting the initial question on start up
         // creating the toast for a correct answer
-        Toast correctToast= Toast.makeText(getApplicationContext(), R.string.toast_correct, Toast.LENGTH_SHORT);
+        Toast correctToast= Toast.makeText(getApplicationContext(), R.string.toast_correct, Toast.LENGTH_LONG);
         correctToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 250);
         // creating the toast for an incorrect answer
-        Toast incorrectToast= Toast.makeText(getApplicationContext(), R.string.toast_incorrect, Toast.LENGTH_SHORT);
+        Toast incorrectToast= Toast.makeText(getApplicationContext(), R.string.toast_incorrect, Toast.LENGTH_LONG);
         incorrectToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 250);
 
 
@@ -48,16 +49,19 @@ public class MainActivity extends AppCompatActivity {
 
                 // the user presses true, display the corresponding toast if the answer is correct or not
                 if (questionPool.answerIsCorrect(true)) {
+                    correctToast.setText(getString(R.string.toast_correct)+"\n"+questionPool.getQuestionExplanation());
                     correctToast.show();
                     scoreCounter += 1;
                 } else {
+                    incorrectToast.setText(getString(R.string.toast_incorrect)+"\n"+questionPool.getQuestionExplanation());
                     incorrectToast.show();
+
                 }
                 answerCounter += 1;
                 questionPool.popCurrentQuestion(); // removes the current question from the list
                 questionPool.nextQuestion(); // moves onto the next question
                 question.setText(questionPool.getQuestionString()); // changes the display question
-                score.setText(String.format(Locale.getDefault(), "Score: %d/%d", scoreCounter,answerCounter));
+                score.setText(String.format(Locale.getDefault(), getString(R.string.score_format), scoreCounter,answerCounter));
 
             } else{
                 question.setText(questionPool.getQuestionString()); // changes the display question
@@ -70,9 +74,12 @@ public class MainActivity extends AppCompatActivity {
 
                 // the user presses true, display the corresponding toast if the answer is correct or not
                 if (questionPool.answerIsCorrect(false)) {
+                    correctToast.setText(getString(R.string.toast_correct)+"\n"+questionPool.getQuestionExplanation());
                     correctToast.show();
+
                     scoreCounter += 1;
                 } else {
+                    incorrectToast.setText(getString(R.string.toast_incorrect)+"\n"+questionPool.getQuestionExplanation());
                     incorrectToast.show();
                 }
                 answerCounter += 1;
